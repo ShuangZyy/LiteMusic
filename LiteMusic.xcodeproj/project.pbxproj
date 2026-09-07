@@ -26,6 +26,7 @@
 		CAFEBABE0000000000000211 /* LyricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000111 /* LyricsView.swift */; };
 		CAFEBABE0000000000000212 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000112 /* SearchBar.swift */; };
 		CAFEBABE0000000000000213 /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000113 /* RemoteImage.swift */; };
+		CAFEBABE0000000000000214 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000115 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		CAFEBABE0000000000000112 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		CAFEBABE0000000000000113 /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
 		CAFEBABE0000000000000114 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CAFEBABE0000000000000115 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 				CAFEBABE000000000000000C /* Services */,
 				CAFEBABE000000000000000D /* ViewModels */,
 				CAFEBABE000000000000000E /* Views */,
+				CAFEBABE0000000000000115 /* Assets.xcassets */,
 				CAFEBABE0000000000000114 /* Info.plist */,
 			);
 			path = LiteMusic;
@@ -203,6 +206,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAFEBABE0000000000000214 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +361,7 @@
 		CAFEBABE0000000000000013 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -378,6 +383,7 @@
 		CAFEBABE0000000000000014 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
