@@ -148,46 +148,52 @@ final class QRLoginViewModel: ObservableObject {
     func refresh() {
         statusText = "正在生成二维码..."
         APIService.shared.qrKey { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let unikey):
-                self.key = unikey
-                self.loadQRImage(key: unikey)
-            case .failure(let e):
-                self.statusText = e.localizedDescription
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch result {
+                case .success(let unikey):
+                    self.key = unikey
+                    self.loadQRImage(key: unikey)
+                case .failure(let e):
+                    self.statusText = e.localizedDescription
+                }
             }
         }
     }
 
     private func loadQRImage(key: String) {
         APIService.shared.qrCreate(key: key) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let base64):
-                // qrimg 可能带 data URI 前缀（如 data:image/png;base64,xxx），去掉前缀再解码
-                var encoded = base64
-                if let range = encoded.range(of: "base64,") {
-                    encoded = String(encoded[range.upperBound...])
-                }
-                if let data = Data(base64Encoded: encoded), let img = UIImage(data: data) {
-                    DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch result {
+                case .success(let base64):
+                    // qrimg 可能带 data URI 前缀（如 data:image/png;base64,xxx），去掉前缀再解码
+                    var encoded = base64
+                    if let range = encoded.range(of: "base64,") {
+                        encoded = String(encoded[range.upperBound...])
+                    }
+                    if let data = Data(base64Encoded: encoded), let img = UIImage(data: data) {
                         self.qrImage = img
                         self.statusText = "请使用网易云音乐 App 扫码登录"
+                        self.startPolling()
+                    } else {
+                        self.statusText = "二维码解析失败"
                     }
-                    self.startPolling()
-                } else {
-                    self.statusText = "二维码解析失败"
+                case .failure(let e):
+                    self.statusText = e.localizedDescription
                 }
-            case .failure(let e):
-                self.statusText = e.localizedDescription
             }
         }
     }
 
     private func startPolling() {
         stopTimer()
-        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [weak self] _ in
-            self?.checkStatus()
+        // 必须在主线程创建 Timer：URLSession 回调在后台线程，后台线程没有 RunLoop，计时器不会触发
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [weak self] _ in
+                self?.checkStatus()
+            }
         }
     }
 

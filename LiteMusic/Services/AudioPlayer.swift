@@ -64,7 +64,10 @@ final class AudioPlayer: NSObject, ObservableObject {
             switch item.status {
             case .readyToPlay:
                 let d = item.duration.seconds
-                self?.duration = d.isFinite ? d : 0
+                // KVO 通知可能落在 AVFoundation 后台线程，改 @Published 必须回主线程
+                DispatchQueue.main.async {
+                    self?.duration = d.isFinite ? d : 0
+                }
             case .failed:
                 print("播放失败: \(item.error?.localizedDescription ?? "未知错误")")
             default:
