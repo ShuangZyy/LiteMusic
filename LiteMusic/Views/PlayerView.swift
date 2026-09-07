@@ -11,20 +11,25 @@ import MediaPlayer
 struct PlayerView: View {
     @EnvironmentObject var playerVM: PlayerViewModel
     @EnvironmentObject var player: AudioPlayer
-    @Environment(\.presentationMode) var presentationMode
+    /// 关闭回调（由父视图传入，避免 fullScreenCover 下 presentationMode 不可靠）
+    let onDismiss: () -> Void
 
     @State private var isSeeking = false
     @State private var seekTime: Double = 0
 
     var body: some View {
         ZStack {
-            Color(.systemBackground).ignoresSafeArea()
+            // 氛围背景：当前歌曲封面模糊 + 氛围色
+            AmbientBackground(coverURL: playerVM.currentSong?.coverURLString)
 
             VStack(spacing: 0) {
                 // 顶部收起按钮
                 HStack {
-                    Button(action: { presentationMode.wrappedValue.dismiss() }) {
-                        Image(systemName: "chevron.down").font(.title2)
+                    Button(action: onDismiss) {
+                        Image(systemName: "chevron.down")
+                            .font(.title2)
+                            .frame(width: 44, height: 44)
+                            .contentShape(Rectangle())
                     }
                     Spacer()
                     Text(playerVM.currentSong?.name ?? "")

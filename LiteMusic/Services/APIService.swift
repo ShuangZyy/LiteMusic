@@ -350,7 +350,9 @@ private struct AccountInfo: Decodable {
 }
 
 private struct LoginStatusResponse: Decodable {
-    let code: Int
+    // 注意：enhanced API 的 /login/status 返回体只有 { data: { ...profile } }，
+    // 顶层没有 code 字段，因此这里必须用可选类型，否则解码失败导致用户信息永远为空。
+    let code: Int?
     let message: String?
     let data: LoginStatusData?
 }

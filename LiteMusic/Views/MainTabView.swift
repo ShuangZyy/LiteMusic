@@ -11,6 +11,7 @@ struct MainTabView: View {
     @EnvironmentObject var auth: AuthManager
     @EnvironmentObject var playerVM: PlayerViewModel
     @EnvironmentObject var player: AudioPlayer
+    @EnvironmentObject var appearance: AppearanceManager
 
     @State private var selectedTab = 0
     @State private var showLogin = false
@@ -18,6 +19,9 @@ struct MainTabView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
+            // 主界面氛围背景（跟随当前歌曲封面）
+            AmbientBackground(coverURL: playerVM.currentSong?.coverURLString)
+
             TabView(selection: $selectedTab) {
                 PlaylistView()
                     .tabItem { Label("首页", systemImage: "house.fill") }
@@ -43,12 +47,17 @@ struct MainTabView: View {
             if !auth.isLoggedIn { showLogin = true }
         }
         .sheet(isPresented: $showLogin) {
-            LoginView().environmentObject(auth)
+            LoginView()
+                .environmentObject(auth)
+                .environmentObject(appearance)
+                .preferredColorScheme(appearance.themeMode.colorScheme)
         }
         .fullScreenCover(isPresented: $showPlayer) {
-            PlayerView()
+            PlayerView(onDismiss: { showPlayer = false })
                 .environmentObject(playerVM)
                 .environmentObject(player)
+                .environmentObject(appearance)
+                .preferredColorScheme(appearance.themeMode.colorScheme)
         }
     }
 }
@@ -57,6 +66,7 @@ struct MainTabView: View {
 
 private struct MineView: View {
     @EnvironmentObject var auth: AuthManager
+    @EnvironmentObject var appearance: AppearanceManager
     @State private var apiURL = ""
     @State private var showLogin = false
     @State private var showLogoutConfirm = false
@@ -94,6 +104,26 @@ private struct MineView: View {
                         .disableAutocorrection(true)
                     Button("保存 API 地址") {
                         APIService.shared.baseURL = apiURL.trimmingCharacters(in: .whitespacesAndNewlines)
+                    }
+                }
+
+                Section(header: Text("外观")) {
+                    Picker("主题", selection: $appearance.themeMode) {
+                        ForEach(ThemeMode.allCases) { mode in
+                            Text(mode.label).tag(mode)
+                        }
+                    }
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("背景模糊度")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                        Slider(value: $appearance.backgroundBlur, in: 0...60, step: 1)
+                    }
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("背景透明度")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                        Slider(value: $appearance.backgroundOpacity, in: 0...1, step: 0.05)
                     }
                 }
             }

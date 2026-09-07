@@ -27,6 +27,8 @@
 		CAFEBABE0000000000000212 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000112 /* SearchBar.swift */; };
 		CAFEBABE0000000000000213 /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000113 /* RemoteImage.swift */; };
 		CAFEBABE0000000000000214 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000115 /* Assets.xcassets */; };
+		CAFEBABE0000000000000215 /* AppearanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000116 /* AppearanceManager.swift */; };
+		CAFEBABE0000000000000216 /* AmbientBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000117 /* AmbientBackground.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,8 @@
 		CAFEBABE0000000000000113 /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
 		CAFEBABE0000000000000114 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CAFEBABE0000000000000115 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CAFEBABE0000000000000116 /* AppearanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceManager.swift; sourceTree = "<group>"; };
+		CAFEBABE0000000000000117 /* AmbientBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmbientBackground.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,7 @@
 				CAFEBABE0000000000000106 /* AudioPlayer.swift */,
 				CAFEBABE0000000000000107 /* AuthManager.swift */,
 				CAFEBABE0000000000000108 /* KeychainHelper.swift */,
+				CAFEBABE0000000000000116 /* AppearanceManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -145,6 +150,7 @@
 				CAFEBABE0000000000000111 /* LyricsView.swift */,
 				CAFEBABE0000000000000112 /* SearchBar.swift */,
 				CAFEBABE0000000000000113 /* RemoteImage.swift */,
+				CAFEBABE0000000000000117 /* AmbientBackground.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -236,6 +242,8 @@
 				CAFEBABE0000000000000211 /* LyricsView.swift in Sources */,
 				CAFEBABE0000000000000212 /* SearchBar.swift in Sources */,
 				CAFEBABE0000000000000213 /* RemoteImage.swift in Sources */,
+				CAFEBABE0000000000000215 /* AppearanceManager.swift in Sources */,
+				CAFEBABE0000000000000216 /* AmbientBackground.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
