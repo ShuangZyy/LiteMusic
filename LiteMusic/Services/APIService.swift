@@ -243,8 +243,39 @@ final class APIService {
         }
     }
 
-    /// 私人 FM
-    func personalFM(cookie: String, completion: @escaping (Result<[Song], Error>) -> Void) {
+    /// 私人 FM（单次 /personal_fm 只返回 3 首，这里顺序拉取多批并去重，凑够约 15 首）
+    func personalFM(cookie: String, batches: Int = 5, completion: @escaping (Result<[Song], Error>) -> Void) {
+        var all: [Song] = []
+        var seen = Set<Int>()
+        var firstError: Error?
+
+        func fetchNext(_ remaining: Int) {
+            guard remaining > 0 else {
+                if all.isEmpty, let e = firstError {
+                    completion(.failure(e))
+                } else {
+                    completion(.success(all))
+                }
+                return
+            }
+            fetchPersonalFMBatch(cookie: cookie) { result in
+                switch result {
+                case .success(let songs):
+                    for s in songs where !seen.contains(s.id) {
+                        seen.insert(s.id)
+                        all.append(s)
+                    }
+                case .failure(let e):
+                    if firstError == nil { firstError = e }
+                }
+                fetchNext(remaining - 1)
+            }
+        }
+        fetchNext(batches)
+    }
+
+    /// 单批私人 FM（内部使用）
+    private func fetchPersonalFMBatch(cookie: String, completion: @escaping (Result<[Song], Error>) -> Void) {
         var query: [String: String] = [:]
         if !cookie.isEmpty { query["cookie"] = cookie }
         get(path: "/personal_fm", query: query) { result in
