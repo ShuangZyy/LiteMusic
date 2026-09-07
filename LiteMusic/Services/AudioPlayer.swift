@@ -137,7 +137,7 @@ final class AudioPlayer: NSObject, ObservableObject {
 
     func setNowPlayingInfo(song: Song) {
         currentSong = song
-        var info: [String: Any] = [
+        let info: [String: Any] = [
             MPMediaItemPropertyTitle: song.name,
             MPMediaItemPropertyArtist: song.artistName,
             MPMediaItemPropertyAlbumTitle: song.albumName,

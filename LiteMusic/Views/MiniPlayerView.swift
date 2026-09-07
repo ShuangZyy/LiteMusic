@@ -41,7 +41,7 @@ struct MiniPlayerView: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(Color(uiColor: .systemBackground))
+        .background(Color(.systemBackground))
         .cornerRadius(12)
         .shadow(radius: 3)
         .padding(.horizontal, 8)

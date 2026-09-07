@@ -10,7 +10,7 @@ import Foundation
 // MARK: - 歌曲
 
 /// 歌曲模型，对应网易云 API 中的 song 对象
-struct Song: Identifiable, Codable, Hashable {
+struct Song: Identifiable, Decodable, Hashable {
     /// 歌曲 ID
     let id: Int
     /// 歌曲名
