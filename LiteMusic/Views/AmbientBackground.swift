@@ -20,21 +20,24 @@ struct AmbientBackground: View {
     @State private var loadToken = UUID()
 
     var body: some View {
-        ZStack {
-            // 静态底色铺满全屏（含状态栏/底部指示条），不参与动态布局
-            Color(.systemBackground)
-                .ignoresSafeArea()
-            // 动态氛围内容只铺安全区，避免 ignoresSafeArea 影响外层 TabView / NavigationView 布局
-            if let img = blurredImage {
-                Image(uiImage: img)
-                    .resizable()
-                    .scaledToFill()
-                    .clipped()
-                    .opacity(appearance.backgroundOpacity)
-                ambientColor
-                    .opacity(appearance.backgroundOpacity * 0.55)
+        // 用 GeometryReader 拿到确切屏幕尺寸，把模糊图钉死在该尺寸内，
+        // 避免图片自身的像素尺寸把布局撑宽
+        GeometryReader { geo in
+            ZStack {
+                Color(.systemBackground)
+                if let img = blurredImage {
+                    Image(uiImage: img)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: geo.size.width, height: geo.size.height)
+                        .clipped()
+                        .opacity(appearance.backgroundOpacity)
+                    ambientColor
+                        .opacity(appearance.backgroundOpacity * 0.55)
+                }
             }
         }
+        .ignoresSafeArea()
         .allowsHitTesting(false)
         .onAppear(perform: loadCover)
         .onChange(of: coverURL) { _ in
@@ -106,7 +109,8 @@ extension UIImage {
         let context = CIContext(options: [CIContextOption.useSoftwareRenderer: false])
         // 裁回原尺寸，避免高斯模糊在边缘外扩产生透明边
         guard let cg = context.createCGImage(output, from: ci.extent) else { return nil }
-        return UIImage(cgImage: cg)
+        // 保留原图 scale：UIImage(cgImage:) 默认 scale=1.0，会把像素当 point 导致尺寸被放大（撑宽布局）
+        return UIImage(cgImage: cg, scale: self.scale, orientation: self.imageOrientation)
     }
 
     /// 提取图片平均色，用作氛围色
