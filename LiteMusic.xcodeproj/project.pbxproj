@@ -1,0 +1,423 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CAFEBABE0000000000000201 /* LiteMusicApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000101 /* LiteMusicApp.swift */; };
+		CAFEBABE0000000000000202 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000102 /* Song.swift */; };
+		CAFEBABE0000000000000203 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000103 /* Playlist.swift */; };
+		CAFEBABE0000000000000204 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000104 /* User.swift */; };
+		CAFEBABE0000000000000205 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000105 /* APIService.swift */; };
+		CAFEBABE0000000000000206 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000106 /* AudioPlayer.swift */; };
+		CAFEBABE0000000000000207 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000107 /* AuthManager.swift */; };
+		CAFEBABE0000000000000208 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000108 /* KeychainHelper.swift */; };
+		CAFEBABE0000000000000209 /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000109 /* PlayerViewModel.swift */; };
+		CAFEBABE000000000000020A /* PlaylistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE000000000000010A /* PlaylistViewModel.swift */; };
+		CAFEBABE000000000000020B /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE000000000000010B /* MainTabView.swift */; };
+		CAFEBABE000000000000020C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE000000000000010C /* LoginView.swift */; };
+		CAFEBABE000000000000020D /* PlaylistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE000000000000010D /* PlaylistView.swift */; };
+		CAFEBABE000000000000020E /* SongListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE000000000000010E /* SongListView.swift */; };
+		CAFEBABE000000000000020F /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE000000000000010F /* PlayerView.swift */; };
+		CAFEBABE0000000000000210 /* MiniPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000110 /* MiniPlayerView.swift */; };
+		CAFEBABE0000000000000211 /* LyricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000111 /* LyricsView.swift */; };
+		CAFEBABE0000000000000212 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000112 /* SearchBar.swift */; };
+		CAFEBABE0000000000000213 /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000113 /* RemoteImage.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CAFEBABE0000000000000005 /* LiteMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiteMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAFEBABE0000000000000101 /* LiteMusicApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteMusicApp.swift; sourceTree = "<group>"; };
+		CAFEBABE0000000000000102 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		CAFEBABE0000000000000103 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
+		CAFEBABE0000000000000104 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CAFEBABE0000000000000105 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		CAFEBABE0000000000000106 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		CAFEBABE0000000000000107 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		CAFEBABE0000000000000108 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		CAFEBABE0000000000000109 /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		CAFEBABE000000000000010A /* PlaylistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewModel.swift; sourceTree = "<group>"; };
+		CAFEBABE000000000000010B /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		CAFEBABE000000000000010C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		CAFEBABE000000000000010D /* PlaylistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistView.swift; sourceTree = "<group>"; };
+		CAFEBABE000000000000010E /* SongListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListView.swift; sourceTree = "<group>"; };
+		CAFEBABE000000000000010F /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		CAFEBABE0000000000000110 /* MiniPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerView.swift; sourceTree = "<group>"; };
+		CAFEBABE0000000000000111 /* LyricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsView.swift; sourceTree = "<group>"; };
+		CAFEBABE0000000000000112 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		CAFEBABE0000000000000113 /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
+		CAFEBABE0000000000000114 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CAFEBABE0000000000000007 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CAFEBABE0000000000000002 = {
+			isa = PBXGroup;
+			children = (
+				CAFEBABE0000000000000009 /* LiteMusic */,
+				CAFEBABE0000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CAFEBABE0000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CAFEBABE0000000000000005 /* LiteMusic.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CAFEBABE0000000000000009 /* LiteMusic */ = {
+			isa = PBXGroup;
+			children = (
+				CAFEBABE000000000000000A /* App */,
+				CAFEBABE000000000000000B /* Models */,
+				CAFEBABE000000000000000C /* Services */,
+				CAFEBABE000000000000000D /* ViewModels */,
+				CAFEBABE000000000000000E /* Views */,
+				CAFEBABE0000000000000114 /* Info.plist */,
+			);
+			path = LiteMusic;
+			sourceTree = "<group>";
+		};
+		CAFEBABE000000000000000A /* App */ = {
+			isa = PBXGroup;
+			children = (
+				CAFEBABE0000000000000101 /* LiteMusicApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		CAFEBABE000000000000000B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CAFEBABE0000000000000102 /* Song.swift */,
+				CAFEBABE0000000000000103 /* Playlist.swift */,
+				CAFEBABE0000000000000104 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CAFEBABE000000000000000C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CAFEBABE0000000000000105 /* APIService.swift */,
+				CAFEBABE0000000000000106 /* AudioPlayer.swift */,
+				CAFEBABE0000000000000107 /* AuthManager.swift */,
+				CAFEBABE0000000000000108 /* KeychainHelper.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CAFEBABE000000000000000D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CAFEBABE0000000000000109 /* PlayerViewModel.swift */,
+				CAFEBABE000000000000010A /* PlaylistViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CAFEBABE000000000000000E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CAFEBABE000000000000010B /* MainTabView.swift */,
+				CAFEBABE000000000000010C /* LoginView.swift */,
+				CAFEBABE000000000000010D /* PlaylistView.swift */,
+				CAFEBABE000000000000010E /* SongListView.swift */,
+				CAFEBABE000000000000010F /* PlayerView.swift */,
+				CAFEBABE0000000000000110 /* MiniPlayerView.swift */,
+				CAFEBABE0000000000000111 /* LyricsView.swift */,
+				CAFEBABE0000000000000112 /* SearchBar.swift */,
+				CAFEBABE0000000000000113 /* RemoteImage.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CAFEBABE0000000000000004 /* LiteMusic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAFEBABE0000000000000010 /* Build configuration list for PBXNativeTarget "LiteMusic" */;
+			buildPhases = (
+				CAFEBABE0000000000000006 /* Sources */,
+				CAFEBABE0000000000000007 /* Frameworks */,
+				CAFEBABE0000000000000008 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LiteMusic;
+			productName = LiteMusic;
+			productReference = CAFEBABE0000000000000005 /* LiteMusic.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CAFEBABE0000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					CAFEBABE0000000000000004 = {
+						CreatedOnToolsVersion = 12.5;
+					};
+				};
+			};
+			buildConfigurationList = CAFEBABE000000000000000F /* Build configuration list for PBXProject "LiteMusic" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CAFEBABE0000000000000002;
+			productRefGroup = CAFEBABE0000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CAFEBABE0000000000000004 /* LiteMusic */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CAFEBABE0000000000000008 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CAFEBABE0000000000000006 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAFEBABE0000000000000201 /* LiteMusicApp.swift in Sources */,
+				CAFEBABE0000000000000202 /* Song.swift in Sources */,
+				CAFEBABE0000000000000203 /* Playlist.swift in Sources */,
+				CAFEBABE0000000000000204 /* User.swift in Sources */,
+				CAFEBABE0000000000000205 /* APIService.swift in Sources */,
+				CAFEBABE0000000000000206 /* AudioPlayer.swift in Sources */,
+				CAFEBABE0000000000000207 /* AuthManager.swift in Sources */,
+				CAFEBABE0000000000000208 /* KeychainHelper.swift in Sources */,
+				CAFEBABE0000000000000209 /* PlayerViewModel.swift in Sources */,
+				CAFEBABE000000000000020A /* PlaylistViewModel.swift in Sources */,
+				CAFEBABE000000000000020B /* MainTabView.swift in Sources */,
+				CAFEBABE000000000000020C /* LoginView.swift in Sources */,
+				CAFEBABE000000000000020D /* PlaylistView.swift in Sources */,
+				CAFEBABE000000000000020E /* SongListView.swift in Sources */,
+				CAFEBABE000000000000020F /* PlayerView.swift in Sources */,
+				CAFEBABE0000000000000210 /* MiniPlayerView.swift in Sources */,
+				CAFEBABE0000000000000211 /* LyricsView.swift in Sources */,
+				CAFEBABE0000000000000212 /* SearchBar.swift in Sources */,
+				CAFEBABE0000000000000213 /* RemoteImage.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CAFEBABE0000000000000011 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CAFEBABE0000000000000012 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CAFEBABE0000000000000013 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = LiteMusic/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.litemusic.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		CAFEBABE0000000000000014 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = LiteMusic/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.litemusic.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CAFEBABE000000000000000F /* Build configuration list for PBXProject "LiteMusic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAFEBABE0000000000000011 /* Debug */,
+				CAFEBABE0000000000000012 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAFEBABE0000000000000010 /* Build configuration list for PBXNativeTarget "LiteMusic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAFEBABE0000000000000013 /* Debug */,
+				CAFEBABE0000000000000014 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CAFEBABE0000000000000001 /* Project object */;
+}
