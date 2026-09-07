@@ -14,31 +14,31 @@ struct AmbientBackground: View {
     let coverURL: String?
     @EnvironmentObject var appearance: AppearanceManager
 
-    @State private var coverImage: UIImage?
+    /// 处理后的模糊图（下采样 + 高斯模糊，避免大图在渲染时引发布局异常）
+    @State private var blurredImage: UIImage?
     @State private var ambientColor: Color = Color(.systemBackground)
     @State private var loadToken = UUID()
 
     var body: some View {
         ZStack {
-            // 基底色，保证文字可读性
+            // 静态底色铺满全屏（含状态栏/底部指示条），不参与动态布局
             Color(.systemBackground)
-            if let img = coverImage {
+                .ignoresSafeArea()
+            // 动态氛围内容只铺安全区，避免 ignoresSafeArea 影响外层 TabView / NavigationView 布局
+            if let img = blurredImage {
                 Image(uiImage: img)
                     .resizable()
                     .scaledToFill()
-                    .blur(radius: CGFloat(appearance.backgroundBlur))
-                    .opacity(appearance.backgroundOpacity)
                     .clipped()
-                // 氛围色叠加
+                    .opacity(appearance.backgroundOpacity)
                 ambientColor
                     .opacity(appearance.backgroundOpacity * 0.55)
             }
         }
-        .ignoresSafeArea()
         .allowsHitTesting(false)
         .onAppear(perform: loadCover)
         .onChange(of: coverURL) { _ in
-            coverImage = nil
+            blurredImage = nil
             loadCover()
         }
     }
@@ -47,12 +47,12 @@ struct AmbientBackground: View {
         let token = UUID()
         loadToken = token
         guard let coverURL = coverURL, let url = URL(string: coverURL) else {
-            coverImage = nil
+            blurredImage = nil
             ambientColor = Color(.systemBackground)
             return
         }
         if let cached = ImageCache.shared.image(for: coverURL) {
-            apply(cached)
+            process(cached, token: token)
             return
         }
         URLSession.shared.dataTask(with: url) { data, _, _ in
@@ -60,21 +60,55 @@ struct AmbientBackground: View {
             ImageCache.shared.set(img, for: coverURL)
             DispatchQueue.main.async {
                 // 仅在封面地址未再变化时应用，避免旧图覆盖新图
-                if self.loadToken == token { self.apply(img) }
+                if self.loadToken == token { self.process(img, token: token) }
             }
         }.resume()
     }
 
-    private func apply(_ img: UIImage) {
-        coverImage = img
-        let avg = img.averageColor()
-        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        avg.getRed(&r, green: &g, blue: &b, alpha: &a)
-        ambientColor = Color(.sRGB, red: Double(r), green: Double(g), blue: Double(b), opacity: Double(a))
+    /// 后台线程下采样 + 高斯模糊，主线程只负责回写状态，避免卡顿与缩放异常
+    private func process(_ img: UIImage, token: UUID) {
+        let blur = CGFloat(appearance.backgroundBlur)
+        DispatchQueue.global(qos: .userInitiated).async {
+            let small = img.downscaled(maxDimension: 256)
+            let blurred = blur > 0 ? (small.blurred(radius: blur / 3) ?? small) : small
+            let avg = img.averageColor()
+            DispatchQueue.main.async {
+                guard self.loadToken == token else { return }
+                self.blurredImage = blurred
+                var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+                avg.getRed(&r, green: &g, blue: &b, alpha: &a)
+                self.ambientColor = Color(.sRGB, red: Double(r), green: Double(g), blue: Double(b), opacity: Double(a))
+            }
+        }
     }
 }
 
 extension UIImage {
+    /// 下采样到指定最大边长（用于氛围背景，降低内存与渲染压力）
+    func downscaled(maxDimension: CGFloat) -> UIImage {
+        let size = self.size
+        guard size.width > 0, size.height > 0 else { return self }
+        let scale = min(1.0, maxDimension / max(size.width, size.height))
+        guard scale < 1.0 else { return self }
+        let newSize = CGSize(width: size.width * scale, height: size.height * scale)
+        let renderer = UIGraphicsImageRenderer(size: newSize)
+        return renderer.image { _ in
+            self.draw(in: CGRect(origin: .zero, size: newSize))
+        }
+    }
+
+    /// 高斯模糊（半径单位：像素）
+    func blurred(radius: CGFloat) -> UIImage? {
+        guard let ci = CIImage(image: self) else { return nil }
+        let filter = CIFilter(name: "CIGaussianBlur",
+                              parameters: [kCIInputImageKey: ci, kCIInputRadiusKey: radius])
+        guard let output = filter?.outputImage else { return nil }
+        let context = CIContext(options: [CIContextOption.useSoftwareRenderer: false])
+        // 裁回原尺寸，避免高斯模糊在边缘外扩产生透明边
+        guard let cg = context.createCGImage(output, from: ci.extent) else { return nil }
+        return UIImage(cgImage: cg)
+    }
+
     /// 提取图片平均色，用作氛围色
     func averageColor() -> UIColor {
         guard let ci = CIImage(image: self) else { return .systemBackground }
