@@ -36,7 +36,14 @@ struct PlayerView: View {
                         .font(.subheadline)
                         .lineLimit(1)
                     Spacer()
-                    Image(systemName: "chevron.down").opacity(0) // 占位保持居中
+                    // 播放模式（循环/随机/单曲）移到右上角，保证下方播放键居中
+                    Button(action: { playerVM.cyclePlayMode() }) {
+                        Image(systemName: playerVM.playMode.icon)
+                            .font(.title2)
+                            .frame(width: 44, height: 44)
+                            .contentShape(Rectangle())
+                    }
+                    .accentColor(playerVM.coverColor)
                 }
                 .padding(.horizontal)
                 .padding(.top, 8)
@@ -91,17 +98,14 @@ struct PlayerView: View {
                 }
                 .padding(.top, 16)
 
-                // 播放控制（颜色跟随封面印象色）
-                HStack(spacing: 28) {
-                    Button(action: { playerVM.cyclePlayMode() }) {
-                        Image(systemName: playerVM.playMode.icon).font(.title2)
-                    }
+                // 播放控制：上一首 / 播放暂停 / 下一首，播放键居中（颜色跟随封面印象色）
+                HStack(spacing: 48) {
                     Button(action: { playerVM.previous() }) {
                         Image(systemName: "backward.fill").font(.largeTitle)
                     }
                     Button(action: { playerVM.togglePlay() }) {
                         Image(systemName: player.isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                            .font(.system(size: 70))
+                            .font(.system(size: 72))
                     }
                     Button(action: { playerVM.next() }) {
                         Image(systemName: "forward.fill").font(.largeTitle)
