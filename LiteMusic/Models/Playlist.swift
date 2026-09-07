@@ -8,7 +8,7 @@
 import Foundation
 
 /// 歌单模型，对应网易云 /user/playlist 与 /playlist/detail 返回的 playlist 对象
-struct Playlist: Identifiable, Codable {
+struct Playlist: Identifiable, Decodable {
     /// 歌单 ID
     let id: Int
     /// 歌单名称
