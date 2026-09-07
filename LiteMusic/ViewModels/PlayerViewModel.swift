@@ -197,9 +197,12 @@ final class PlayerViewModel: ObservableObject {
     private func applyCoverColor(_ img: UIImage, for song: Song) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             let avg = img.averageColor()
+            var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+            avg.getRed(&r, green: &g, blue: &b, alpha: &a)
             DispatchQueue.main.async {
                 guard self?.currentSong?.id == song.id else { return }
-                self?.coverColor = Color(uiColor: avg)
+                // iOS 14 兼容：Color(uiColor:) 是 iOS 15+，这里手动从 RGB 分量构造
+                self?.coverColor = Color(.sRGB, red: Double(r), green: Double(g), blue: Double(b), opacity: Double(a))
             }
         }
     }
