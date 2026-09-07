@@ -7,6 +7,8 @@
 
 import Foundation
 import Combine
+import SwiftUI
+import UIKit
 
 // MARK: - 播放模式
 
@@ -40,6 +42,8 @@ final class PlayerViewModel: ObservableObject {
     @Published var lyrics: [LyricLine] = []
     /// 当前高亮歌词行下标
     @Published var currentLyricIndex: Int = 0
+    /// 当前封面印象色（平均色），用于播放控制按钮等配色
+    @Published var coverColor: Color = .accentColor
 
     private let player = AudioPlayer.shared
     private var cancellables = Set<AnyCancellable>()
@@ -80,6 +84,7 @@ final class PlayerViewModel: ObservableObject {
         currentSong = song
         lyrics = []
         currentLyricIndex = 0
+        updateCoverColor(for: song)
 
         APIService.shared.songURL(id: song.id) { [weak self] result in
             DispatchQueue.main.async {
@@ -163,6 +168,38 @@ final class PlayerViewModel: ObservableObject {
                 if case .success(let text) = result, let text = text {
                     self.lyrics = LRC.parse(text)
                 }
+            }
+        }
+    }
+
+    // MARK: - 封面印象色
+
+    /// 提取当前封面平均色作为「印象色」，用于播放控制按钮等配色
+    private func updateCoverColor(for song: Song) {
+        guard let cover = song.coverURLString, let url = URL(string: cover) else {
+            coverColor = .accentColor
+            return
+        }
+        if let cached = ImageCache.shared.image(for: cover) {
+            applyCoverColor(cached, for: song)
+            return
+        }
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
+            guard let data = data, let img = UIImage(data: data) else { return }
+            ImageCache.shared.set(img, for: cover)
+            DispatchQueue.main.async {
+                self?.applyCoverColor(img, for: song)
+            }
+        }.resume()
+    }
+
+    /// 在后台线程计算平均色，主线程回写（用 song.id 防止旧歌颜色覆盖新歌）
+    private func applyCoverColor(_ img: UIImage, for song: Song) {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            let avg = img.averageColor()
+            DispatchQueue.main.async {
+                guard self?.currentSong?.id == song.id else { return }
+                self?.coverColor = Color(uiColor: avg)
             }
         }
     }

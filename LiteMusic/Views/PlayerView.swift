@@ -91,7 +91,7 @@ struct PlayerView: View {
                 }
                 .padding(.top, 16)
 
-                // 播放控制
+                // 播放控制（颜色跟随封面印象色）
                 HStack(spacing: 28) {
                     Button(action: { playerVM.cyclePlayMode() }) {
                         Image(systemName: playerVM.playMode.icon).font(.title2)
@@ -108,6 +108,7 @@ struct PlayerView: View {
                     }
                 }
                 .padding(.top, 20)
+                .accentColor(playerVM.coverColor)
 
                 Spacer()
 
