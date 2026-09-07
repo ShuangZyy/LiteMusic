@@ -20,6 +20,7 @@ struct PlayerView: View {
         ZStack {
             // 氛围背景：当前歌曲封面模糊 + 氛围色
             AmbientBackground(coverURL: playerVM.currentSong?.coverURLString)
+                .id(playerVM.currentSong?.coverURLString)
 
             VStack(spacing: 0) {
                 // 顶部收起按钮

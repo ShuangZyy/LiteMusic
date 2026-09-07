@@ -21,6 +21,7 @@ struct MainTabView: View {
         ZStack(alignment: .bottom) {
             // 主界面氛围背景（跟随当前歌曲封面）
             AmbientBackground(coverURL: playerVM.currentSong?.coverURLString)
+                .id(playerVM.currentSong?.coverURLString)
 
             TabView(selection: $selectedTab) {
                 PlaylistView()

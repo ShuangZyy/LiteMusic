@@ -12,6 +12,19 @@ import UIKit
 struct RemoteImage: View {
     let urlString: String?
     let placeholder: Image
+
+    var body: some View {
+        // 以 URL 作为视图身份：地址变化时 SwiftUI 会重建视图、重置 @State 并重新触发 onAppear，
+        // 避免依赖 iOS 14 下不可靠的 onChange 导致封面错位（显示上一首的封面）。
+        RemoteImageContent(urlString: urlString, placeholder: placeholder)
+            .id(urlString)
+    }
+}
+
+/// 实际加载并展示图片的视图（由 RemoteImage 以 URL 为 key 驱动）
+private struct RemoteImageContent: View {
+    let urlString: String?
+    let placeholder: Image
     @State private var image: UIImage?
     @State private var loadToken = UUID()
 
@@ -24,11 +37,6 @@ struct RemoteImage: View {
             }
         }
         .onAppear(perform: load)
-        // 地址变化时重新加载（例如切歌后封面跟着换）
-        .onChange(of: urlString) { _ in
-            image = nil
-            load()
-        }
     }
 
     private func load() {
