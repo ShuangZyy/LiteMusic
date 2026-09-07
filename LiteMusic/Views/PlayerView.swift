@@ -2,11 +2,10 @@
 //  PlayerView.swift
 //  LiteMusic
 //
-//  全屏播放器：封面、歌曲信息、进度拖拽、播放控制、音量、歌词
+//  全屏播放器：封面、歌曲信息、进度拖拽、播放控制、歌词
 //
 
 import SwiftUI
-import MediaPlayer
 
 struct PlayerView: View {
     @EnvironmentObject var playerVM: PlayerViewModel
@@ -41,13 +40,23 @@ struct PlayerView: View {
                 .padding(.horizontal)
                 .padding(.top, 8)
 
-                // 专辑封面
+                // 专辑封面（碟片）
                 RemoteImage(urlString: playerVM.currentSong?.coverURLString,
                             placeholder: Image(systemName: "music.note"))
                     .frame(width: 260, height: 260)
                     .cornerRadius(12)
                     .shadow(radius: 10)
                     .padding(.top, 30)
+                    // 手指在碟片位置下滑退出全屏
+                    .gesture(
+                        DragGesture(minimumDistance: 20)
+                            .onEnded { value in
+                                if value.translation.height > 60,
+                                   value.translation.height > abs(value.translation.width) {
+                                    onDismiss()
+                                }
+                            }
+                    )
 
                 // 歌曲信息
                 VStack(spacing: 6) {
@@ -82,9 +91,9 @@ struct PlayerView: View {
                 .padding(.top, 16)
 
                 // 播放控制
-                HStack(spacing: 40) {
+                HStack(spacing: 28) {
                     Button(action: { playerVM.cyclePlayMode() }) {
-                        Image(systemName: playerVM.playMode.icon).font(.title3)
+                        Image(systemName: playerVM.playMode.icon).font(.title2)
                     }
                     Button(action: { playerVM.previous() }) {
                         Image(systemName: "backward.fill").font(.largeTitle)
@@ -96,8 +105,6 @@ struct PlayerView: View {
                     Button(action: { playerVM.next() }) {
                         Image(systemName: "forward.fill").font(.largeTitle)
                     }
-                    VolumeView()
-                        .frame(width: 90, height: 40)
                 }
                 .padding(.top, 20)
 
@@ -120,16 +127,4 @@ struct PlayerView: View {
         let total = max(0, Int(t))
         return String(format: "%d:%02d", total / 60, total % 60)
     }
-}
-
-// MARK: - 音量控制（UIKit MPVolumeView 封装）
-
-private struct VolumeView: UIViewRepresentable {
-    func makeUIView(context: Context) -> MPVolumeView {
-        let view = MPVolumeView()
-        view.showsRouteButton = false
-        return view
-    }
-
-    func updateUIView(_ uiView: MPVolumeView, context: Context) {}
 }
