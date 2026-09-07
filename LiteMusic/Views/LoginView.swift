@@ -164,7 +164,12 @@ final class QRLoginViewModel: ObservableObject {
             guard let self = self else { return }
             switch result {
             case .success(let base64):
-                if let data = Data(base64Encoded: base64), let img = UIImage(data: data) {
+                // qrimg 可能带 data URI 前缀（如 data:image/png;base64,xxx），去掉前缀再解码
+                var encoded = base64
+                if let range = encoded.range(of: "base64,") {
+                    encoded = String(encoded[range.upperBound...])
+                }
+                if let data = Data(base64Encoded: encoded), let img = UIImage(data: data) {
                     DispatchQueue.main.async {
                         self.qrImage = img
                         self.statusText = "请使用网易云音乐 App 扫码登录"
