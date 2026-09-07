@@ -23,7 +23,7 @@ struct Song: Identifiable, Decodable, Hashable {
     let dt: Int
 
     enum CodingKeys: String, CodingKey {
-        case id, name, ar, al, dt, duration
+        case id, name, ar, artists, al, album, dt, duration
     }
 
     init(id: Int, name: String, ar: [Artist], al: Album, dt: Int) {
@@ -39,8 +39,19 @@ struct Song: Identifiable, Decodable, Hashable {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         id = try c.decode(Int.self, forKey: .id)
         name = try c.decode(String.self, forKey: .name)
-        ar = (try? c.decode([Artist].self, forKey: .ar)) ?? []
-        al = (try? c.decode(Album.self, forKey: .al)) ?? Album(id: 0, name: "未知专辑", picUrl: nil)
+        // 歌手：标准接口用 ar（如歌单/推荐/详情），搜索接口用 artists
+        if let v = try? c.decode([Artist].self, forKey: .ar) {
+            ar = v
+        } else {
+            ar = (try? c.decode([Artist].self, forKey: .artists)) ?? []
+        }
+        // 专辑：标准接口用 al，搜索接口用 album
+        if let v = try? c.decode(Album.self, forKey: .al) {
+            al = v
+        } else {
+            al = (try? c.decode(Album.self, forKey: .album)) ?? Album(id: 0, name: "未知专辑", picUrl: nil)
+        }
+        // 时长：标准接口用 dt（毫秒），搜索接口用 duration
         if let d = try? c.decode(Int.self, forKey: .dt) {
             dt = d
         } else if let d = try? c.decode(Int.self, forKey: .duration) {
