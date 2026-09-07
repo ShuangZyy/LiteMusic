@@ -206,17 +206,16 @@ final class QRLoginViewModel: ObservableObject {
                 case .success(let r):
                     switch r.code {
                     case 800:
-                        self.statusText = "等待扫码..."
+                        self.statusText = "二维码不存在或已过期，请刷新"
                     case 801:
-                        self.statusText = "已扫码，请在手机上确认登录"
+                        self.statusText = "等待扫码..."
                     case 802:
+                        self.statusText = "已扫码，请在手机上确认登录"
+                    case 803:
                         self.stopTimer()
                         self.statusText = "登录成功"
                         AuthManager.shared.saveLogin(cookie: r.cookie, uid: 0)
                         AuthManager.shared.refreshUserProfile()
-                    case 803:
-                        self.statusText = "二维码已过期，请刷新"
-                        self.stopTimer()
                     default:
                         break
                     }

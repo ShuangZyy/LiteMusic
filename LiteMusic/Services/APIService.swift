@@ -38,7 +38,7 @@ enum APIError: LocalizedError {
 
 /// 二维码状态检查结果
 struct QRCheckResult {
-    /// 800 等待扫码 / 801 已扫码待确认 / 802 授权成功 / 803 已过期
+    /// 800 二维码不存在或已过期 / 801 等待扫码 / 802 已扫码待确认 / 803 授权成功
     let code: Int
     let cookie: String
     let message: String
