@@ -49,4 +49,10 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
         application.beginReceivingRemoteControlEvents()
         return true
     }
+
+    /// 锁定竖屏：播放歌曲时避免系统把界面旋转成横屏（出现宽屏/黑边、只显示中间的问题）
+    func application(_ application: UIApplication,
+                     supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return .portrait
+    }
 }

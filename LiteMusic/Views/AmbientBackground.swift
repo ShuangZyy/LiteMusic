@@ -28,12 +28,14 @@ struct AmbientBackground: View {
                     .scaledToFill()
                     .blur(radius: CGFloat(appearance.backgroundBlur))
                     .opacity(appearance.backgroundOpacity)
+                    .clipped()
                 // 氛围色叠加
                 ambientColor
                     .opacity(appearance.backgroundOpacity * 0.55)
             }
         }
         .ignoresSafeArea()
+        .allowsHitTesting(false)
         .onAppear(perform: loadCover)
         .onChange(of: coverURL) { _ in
             coverImage = nil
