@@ -56,12 +56,17 @@ struct CommentView: View {
             }
         }
         .sheet(item: $activeSheet) { sheet in
-            switch sheet {
-            case .login:
-                LoginView().environmentObject(AuthManager.shared)
-            case .floor(let root):
-                FloorCommentsView(song: song, rootComment: root)
-            }
+            sheetContent(for: sheet)
+        }
+    }
+
+    /// 登录 / 楼中楼 sheet 内容
+    private func sheetContent(for sheet: ActiveCommentSheet) -> some View {
+        switch sheet {
+        case .login:
+            return AnyView(LoginView().environmentObject(AuthManager.shared))
+        case .floor(let root):
+            return AnyView(FloorCommentsView(song: song, rootComment: root))
         }
     }
 
