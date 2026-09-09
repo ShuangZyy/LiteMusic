@@ -378,7 +378,7 @@ struct CommentRowView: View {
                             .font(.caption2)
                             .foregroundColor(.secondary)
                             .padding(.top, 2)
-                        Text("\(preview.user.nickname): \(preview.content)")
+                        Text("\(preview.user?.nickname ?? ""): \(preview.content)")
                             .font(.caption)
                             .foregroundColor(.secondary)
                             .lineLimit(2)

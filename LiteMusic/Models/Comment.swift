@@ -55,6 +55,27 @@ struct CommentReply: Decodable, Hashable {
     }
 }
 
+// MARK: - 楼中楼首条预览
+
+/// 顶层评论里的 showFloorComment 会携带一整条楼中楼回复，但 struct 无法递归包含自身
+/// （值类型递归是编译错误），因此只保留预览所需的字段。
+struct FloorPreview: Decodable, Hashable {
+    /// 回复内容
+    let content: String
+    /// 回复用户
+    let user: CommentUser?
+
+    enum CodingKeys: String, CodingKey {
+        case content, user
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        content = (try? c.decode(String.self, forKey: .content)) ?? ""
+        user = try? c.decode(CommentUser.self, forKey: .user)
+    }
+}
+
 // MARK: - 评论
 
 /// 单条评论，对应网易云 API 中的 comment 对象
@@ -77,7 +98,7 @@ struct Comment: Identifiable, Decodable, Hashable {
     /// IP 属地文本，如「浙江」（不同接口字段为 ipLocation.location / ip）
     let ipLocation: String?
     /// 首条楼中楼回复（用作「查看 X 条回复」入口预览）
-    let showFloorComment: Comment?
+    let showFloorComment: FloorPreview?
 
     /// Identifiable 协议：id = commentId
     var id: Int { commentId }
@@ -110,11 +131,7 @@ struct Comment: Identifiable, Decodable, Hashable {
             ipLocation = nil
         }
         // 容错：首条楼中楼解析失败不影响整条评论
-        if let nested = try? c.decodeIfPresent(Comment.self, forKey: .showFloorComment) {
-            showFloorComment = nested
-        } else {
-            showFloorComment = nil
-        }
+        showFloorComment = try? c.decode(FloorPreview.self, forKey: .showFloorComment)
     }
 
     /// 评论时间相对文本，例如「刚刚 / 3分钟前 / 2小时前 / 昨天 / 2024-01-02」
