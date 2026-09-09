@@ -22,6 +22,8 @@ struct SongListView: View {
     @EnvironmentObject var vm: PlaylistViewModel
     @EnvironmentObject var playerVM: PlayerViewModel
     @State private var searchText = ""
+    /// 长按歌曲「查看评论」选中的歌曲
+    @State private var commentSong: Song?
 
     /// 根据来源取对应歌曲数组
     private var songs: [Song] {
@@ -56,6 +58,14 @@ struct SongListView: View {
                             .onTapGesture {
                                 playerVM.play(songs: songs, index: index)
                             }
+                            // 长按查看该歌曲的评论区
+                            .contextMenu {
+                                Button {
+                                    commentSong = song
+                                } label: {
+                                    Label("查看评论", systemImage: "bubble.left.and.bubble.right")
+                                }
+                            }
                     }
                 }
             }
@@ -64,6 +74,9 @@ struct SongListView: View {
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear(perform: load)
+        .sheet(item: $commentSong) { song in
+            CommentView(song: song)
+        }
     }
 
     private var emptyText: String {

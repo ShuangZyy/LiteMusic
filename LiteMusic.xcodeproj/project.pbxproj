@@ -29,6 +29,9 @@
 		CAFEBABE0000000000000214 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000115 /* Assets.xcassets */; };
 		CAFEBABE0000000000000215 /* AppearanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000116 /* AppearanceManager.swift */; };
 		CAFEBABE0000000000000216 /* AmbientBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000117 /* AmbientBackground.swift */; };
+		CAFEBABE0000000000000217 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000118 /* Comment.swift */; };
+		CAFEBABE0000000000000218 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE0000000000000119 /* CommentViewModel.swift */; };
+		CAFEBABE0000000000000219 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFEBABE000000000000011A /* CommentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +59,9 @@
 		CAFEBABE0000000000000115 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CAFEBABE0000000000000116 /* AppearanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceManager.swift; sourceTree = "<group>"; };
 		CAFEBABE0000000000000117 /* AmbientBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmbientBackground.swift; sourceTree = "<group>"; };
+		CAFEBABE0000000000000118 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		CAFEBABE0000000000000119 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
+		CAFEBABE000000000000011A /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +119,7 @@
 				CAFEBABE0000000000000102 /* Song.swift */,
 				CAFEBABE0000000000000103 /* Playlist.swift */,
 				CAFEBABE0000000000000104 /* User.swift */,
+				CAFEBABE0000000000000118 /* Comment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -134,6 +141,7 @@
 			children = (
 				CAFEBABE0000000000000109 /* PlayerViewModel.swift */,
 				CAFEBABE000000000000010A /* PlaylistViewModel.swift */,
+				CAFEBABE0000000000000119 /* CommentViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -151,6 +159,7 @@
 				CAFEBABE0000000000000112 /* SearchBar.swift */,
 				CAFEBABE0000000000000113 /* RemoteImage.swift */,
 				CAFEBABE0000000000000117 /* AmbientBackground.swift */,
+				CAFEBABE000000000000011A /* CommentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -244,6 +253,9 @@
 				CAFEBABE0000000000000213 /* RemoteImage.swift in Sources */,
 				CAFEBABE0000000000000215 /* AppearanceManager.swift in Sources */,
 				CAFEBABE0000000000000216 /* AmbientBackground.swift in Sources */,
+				CAFEBABE0000000000000217 /* Comment.swift in Sources */,
+				CAFEBABE0000000000000218 /* CommentViewModel.swift in Sources */,
+				CAFEBABE0000000000000219 /* CommentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -338,6 +338,99 @@ final class APIService {
             }
         }
     }
+
+    // MARK: - 评论（歌曲 type=0）
+
+    /// 获取歌曲评论（热门 + 最新），返回总条数与是否还有更多
+    /// - Parameters:
+    ///   - id: 歌曲 ID
+    ///   - offset: 最新评论分页偏移（每页 limit 条）
+    func commentMusic(id: Int, limit: Int = 20, offset: Int = 0, cookie: String = "",
+                      completion: @escaping (Result<(hot: [Comment], latest: [Comment], total: Int, more: Bool), Error>) -> Void) {
+        var query: [String: String] = ["id": String(id), "limit": String(limit), "offset": String(offset)]
+        if !cookie.isEmpty { query["cookie"] = cookie }
+        get(path: "/comment/music", query: query) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let resp = try self.decoder.decode(CommentListResponse.self, from: data)
+                    try self.validate(code: resp.code, message: resp.message)
+                    completion(.success((hot: resp.hotComments ?? [],
+                                         latest: resp.comments ?? [],
+                                         total: resp.total ?? 0,
+                                         more: resp.more ?? false)))
+                } catch { completion(.failure(error)) }
+            case .failure(let e): completion(.failure(e))
+            }
+        }
+    }
+
+    /// 获取某条评论的楼中楼回复（楼层评论）
+    /// 返回回复列表、是否还有更多、下一次请求的 time 游标
+    func commentFloor(id: Int, parentCommentId: Int, limit: Int = 20, time: Int = 0, cookie: String = "",
+                      completion: @escaping (Result<(comments: [Comment], hasMore: Bool, nextTime: Int), Error>) -> Void) {
+        var query: [String: String] = ["id": String(id), "parentCommentId": String(parentCommentId),
+                                       "type": "0", "limit": String(limit), "time": String(time)]
+        if !cookie.isEmpty { query["cookie"] = cookie }
+        get(path: "/comment/floor", query: query) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let resp = try self.decoder.decode(CommentFloorResponse.self, from: data)
+                    try self.validate(code: resp.code, message: resp.message)
+                    let data = resp.data
+                    completion(.success((comments: data?.comments ?? [],
+                                         hasMore: data?.hasMore ?? false,
+                                         nextTime: data?.time ?? time)))
+                } catch { completion(.failure(error)) }
+            case .failure(let e): completion(.failure(e))
+            }
+        }
+    }
+
+    /// 发表 / 回复 / 删除评论（均需登录）
+    /// - Parameters:
+    ///   - t: 1 发表，2 回复，0 删除
+    ///   - content: 发表/回复时的内容（删除传空字符串）
+    ///   - commentId: 回复或删除时，被回复/被删除评论的 ID
+    func sendComment(id: Int, t: Int, content: String, commentId: Int?, cookie: String,
+                     completion: @escaping (Result<Void, Error>) -> Void) {
+        var query: [String: String] = ["id": String(id), "t": String(t), "type": "0"]
+        if !content.isEmpty { query["content"] = content }
+        if let commentId = commentId { query["commentId"] = String(commentId) }
+        if !cookie.isEmpty { query["cookie"] = cookie }
+        get(path: "/comment", query: query) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let resp = try self.decoder.decode(CommentActionResponse.self, from: data)
+                    try self.validate(code: resp.code, message: resp.message)
+                    completion(.success(()))
+                } catch { completion(.failure(error)) }
+            case .failure(let e): completion(.failure(e))
+            }
+        }
+    }
+
+    /// 评论点赞 / 取消点赞（需登录）
+    /// - Parameters:
+    ///   - t: 1 点赞，0 取消点赞
+    func likeComment(id: Int, cid: Int, t: Int, cookie: String,
+                     completion: @escaping (Result<Void, Error>) -> Void) {
+        var query: [String: String] = ["id": String(id), "cid": String(cid), "t": String(t), "type": "0"]
+        if !cookie.isEmpty { query["cookie"] = cookie }
+        get(path: "/comment/like", query: query) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let resp = try self.decoder.decode(CommentActionResponse.self, from: data)
+                    try self.validate(code: resp.code, message: resp.message)
+                    completion(.success(()))
+                } catch { completion(.failure(error)) }
+            case .failure(let e): completion(.failure(e))
+            }
+        }
+    }
 }
 
 // MARK: - 响应包装结构（内部使用）
@@ -448,4 +541,34 @@ private struct LyricResponse: Decodable {
 }
 private struct LRCData: Decodable {
     let lyric: String?
+}
+
+// MARK: - 评论响应包装
+
+private struct CommentListResponse: Decodable {
+    let code: Int
+    let message: String?
+    let total: Int?
+    let more: Bool?
+    let hotComments: [Comment]?
+    let comments: [Comment]?
+}
+
+private struct CommentFloorResponse: Decodable {
+    let code: Int
+    let message: String?
+    let data: CommentFloorData?
+}
+private struct CommentFloorData: Decodable {
+    let comments: [Comment]?
+    let hasMore: Bool?
+    /// 下次分页的 time 游标
+    let time: Int?
+    let totalCount: Int?
+}
+
+private struct CommentActionResponse: Decodable {
+    let code: Int
+    let message: String?
+    let comment: Comment?
 }

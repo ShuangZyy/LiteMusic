@@ -15,6 +15,7 @@ struct PlayerView: View {
 
     @State private var isSeeking = false
     @State private var seekTime: Double = 0
+    @State private var showComments = false
 
     var body: some View {
         ZStack {
@@ -36,6 +37,14 @@ struct PlayerView: View {
                         .font(.subheadline)
                         .lineLimit(1)
                     Spacer()
+                    // 评论入口：查看这首歌的评论区
+                    Button(action: { showComments = true }) {
+                        Image(systemName: "bubble.left.and.bubble.right.fill")
+                            .font(.title3)
+                            .frame(width: 44, height: 44)
+                            .contentShape(Rectangle())
+                    }
+                    .accentColor(playerVM.coverColor)
                     // 播放模式（循环/随机/单曲）移到右上角，保证下方播放键居中
                     Button(action: { playerVM.cyclePlayMode() }) {
                         Image(systemName: playerVM.playMode.icon)
@@ -125,6 +134,12 @@ struct PlayerView: View {
         .onAppear { seekTime = player.currentTime }
         .onReceive(player.$currentTime) { t in
             if !isSeeking { seekTime = t }
+        }
+        // 评论区（全屏播放器也是 fullScreenCover，这里用 sheet 盖在其上）
+        .sheet(isPresented: $showComments) {
+            if let song = playerVM.currentSong {
+                CommentView(song: song)
+            }
         }
     }
 
